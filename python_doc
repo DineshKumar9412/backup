@@ -1,0 +1,729 @@
+Python Document
+
+                   Python latest version 3.10.4
+
+Why We Want to Learn?
+* Data Analysis and Processing
+* Artificial Intelligence
+* Games
+* Hardware/Sensor/Robots
+* Desktop Applications
+
+Desktop GUI Applications?
+
+* Tkinter or Tk
+* wxWidgetM
+* Kivy (used for writing multitouch applications )
+* PyQt or Pyside
+
+Python Variables?
+	Variable is a name that is used to refer to memory location. Python variable is also known as an identifier and used to hold value.
+Camel Case
+	For example - nameOfStudent, valueOfVaraible, etc
+Pascal Case
+	For example - NameOfStudent, etc
+Snake Case
+	For example - name_of_student, etc
+
+Python Variable Types?
+	 Local variable and Global variable
+
+Python Data Types?
+str
+int, float, complex
+list, tuple, range
+dict
+set, frozenset
+bool
+bytes, bytearray, memoryview
+NoneType
+
+Python Strings?
+
+	Strings indexing 
+	a = “Hello”
+	print(a[0])    ==>indexing
+
+	splitting
+	str = "JAVATPOINT"  
+	print(str[0:])  = JAVATPOINT  |   print(str[1:5]) == AVAT   |     print(str[2:4])  == VA     |    print(str[:3])  == JAV                       ==>splitting
+	
+	Modify Strings
+	a = "Hello, World!"
+	print(a.upper())
+	
+	strip And Split
+	strip only removes whitespace
+	X="  Hello World!   ”
+	print(x.strip())        ==     Hello World!
+	Split
+	# Splitting at ':'  word = 'geeks:for:geeks'  print(word.split(':'))  ==>  [‘geeks', 'for', 'geeks’]         | # Splitting at t   word = 'CatBatSatFatOr'  print(word.split('t'))  ==> ['Ca', 'Ba', 'Sa', 'Fa', 'Or']
+
+	The format() method
+		print("{} and {} both are the best friend".format("Devansh","Abhishek"))  
+		print("{1} and {0} best players ".format("Virat","Rohit"))  
+		print("{a},{b},{c}".format(a = "James", b = "Peter", c = "Ricky"))  
+
+Python Operators
+* Arithmetic operators.             + - / * %
+* Comparison operators.          ==  != <= >=  < >
+* Assignment Operators           =  +=  -=  *=
+* Logical Operators                  and  or not
+* Bitwise Operators                   &  | 
+* Membership Operators          in  not in
+* Identity Operators                  is  is not 
+Difference Between List, Tuple Set and Dictionary 
+
+Collection VS Features	Mutable	Ordered	Indexing	Duplicate Data
+List	✔	✔	✔	✔
+Tuple	𐄂	✔	✔	✔
+Set	✔	𐄂	𐄂	𐄂
+Dictionary	✔	✔	✔	𐄂
+
+Ordered means how many times we print that it will print only order 
+A = [1 , 2, 'abc', 3, 'def']
+Print(A)     ===>  use this print every time print the same order but set some times the order will differed
+
+Mutable we can able to change the index posiction 
+tuple1 = (0, 1, 2, 3)     tuple1[0] = 4      print(tuple1)     ====> error
+list = [0,2,3,5]  list[0]= 8    print(list)  ===> [8,2,3,5]
+
+Indexing
+tuples, list, dictionary ==> a = [1, 2, 4, 6]     print(a[0]) ===>  1
+set      ==> error
+
+Duplicate Data
+List and tuples = [1,2,3,2,4,1]      its working print(a) ===> [1,2,3,2,4,1]
+Set	= {1,2,4,5,1,2,4}      ====> its print(a)    ===> {1,2,4,5}
+Dict     ===>    Ordered collection in Python version 3.7, unordered in Python Version=3.6
+
+List	
+New Items in a list can be added using the append() method
+
+Method	Description
+append()	Adds an element at the end of the list
+clear()	Removes all the elements from the list
+copy()	Returns a copy of the list
+count()	Returns the number of elements with the specified value
+extend()	Add the elements of a list (or any iterable), to the end of the current list
+index()	Returns the index of the first element with the specified value
+insert()	Adds an element at the specified position
+pop()	Removes the element at the specified position
+remove()	Removes the item with the specified value
+reverse()	Reverses the order of the list
+sort()	Sorts the list
+
+Tuples
+No
+Method	Description
+count()	Returns the number of times a specified value occurs in a tuple
+index()	Searches the tuple for a specified value and returns the position of where it was found
+Set	
+
+ethod	Description
+add()	Adds an element to the set
+clear()	Removes all the elements from the set
+copy()	Returns a copy of the set
+difference()	Returns a set containing the difference between two or more sets
+difference_update()	Removes the items in this set that are also included in another, specified set
+discard()	Remove the specified item
+intersection()	Returns a set, that is the intersection of two other sets
+intersection_update()	Removes the items in this set that are not present in other, specified set(s)
+isdisjoint()	Returns whether two sets have a intersection or not
+issubset()	Returns whether another set contains this set or not
+issuperset()	Returns whether this set contains another set or not
+pop()	Removes an element from the set
+remove()	Removes the specified element
+symmetric_difference()	Returns a set with the symmetric differences of two sets
+symmetric_difference_update()	inserts the symmetric differences from this set and another
+union()	Return a set containing the union of sets
+update()	Update the set with the union of this set and others
+Dist
+
+Method	Description
+clear()	Removes all the elements from the dictionary
+copy()	Returns a copy of the dictionary
+fromkeys()	Returns a dictionary with the specified keys and value
+get()	Returns the value of the specified key
+items()	Returns a list containing a tuple for each key value pair
+keys()	Returns a list containing the dictionary's keys
+pop()	Removes the element with the specified key
+popitem()	Removes the last inserted key-value pair
+setdefault()	Returns the value of the specified key. If the key does not exist: insert the key, with the specified value
+update()	Updates the dictionary with the specified key-value pairs
+values()	Returns a list of all the values in the dictionary
+
+
+LIST VS TUPLES
+*******************
+Tuples are immutable	
+Implication of iterations is Time-consuming	The implication of iterations is comparatively Faster
+The list is better for performing operations, such as insertion and deletion.	Tuple data type is appropriate for accessing the elements
+Lists consume more memory	Tuple consume less memory as compared to the list
+Lists have several built-in methods	Tuple does not have many built-in methods.
+The unexpected changes and errors are more likely to occur	In tuple, it is hard to take place.
+
+Function 
+
+Types of arguments
+1. Required arguments
+2. Keyword arguments
+3. Default arguments
+4. Variable-length arguments
+
+Required Arguments
+**********************
+def func(name):        #name is Required Arguments
+    message = "Hi "+name  
+    return message  
+name = input("Enter the name:")    
+print(func(name))    
+
+Dafault arguments
+********************
+def printme(name,age=22):     # We give the value age =22 Dafault arguments
+    print("My name is",name,"and age is",age)    
+printme(name = "john") 
+
+Variable-length Arguments (*args)
+*************************************
+def printme(*names):     We using *name mean multiple value Variable-length Arguments
+    print("printing the passed arguments...")    
+    for name in names:    
+        print(name)    
+printme("john","David","smith","nick")    
+
+Keyword arguments
+**********************
+def func(name,message):    
+    print("printing the message with",name,"and ",message)    
+    func(name = "John",message="hello")   #  we give key and value Keyword arguments
+
+Python Built-in Functions
+****************************
+s = sum([1, 2,2 ])   5
+Len() Float() list() open() print() reversed()  range() round() str() tuple() type() dir() enumerate()
+Dict() min() set() slice() sorted() input() int() help()
+eval()
+x = 5  
+print(eval('x + 1'))  
+
+Python Lambda Functions
+************************
+lambda arguments: expression  
+
+x = lambda a:a+10 
+print(x(20))  
+
+Give Another Way
+df = (lambda x: x*4)(3)
+print(df)
+
+Python Lambda function is known as the anonymous function that is defined without a name
+
+showing difference between def() and lambda()
+
+def()
+def cube(y):
+	return y*y*y
+print(cube(5))
+Lamda
+lambda_cube = lambda y: y*y*y
+print(lambda_cube(5))
+EX:
+x = lambda a, b, c : a + b + c
+print(x(5, 6, 2))
+Function with lama
+def myfunc(n):
+  return lambda a : a * n
+mydoubler = myfunc(2)
+print(mydoubler(11))
+If else
+vm = 78
+nwe = (lambda v: "biggest" if (v > 80) else "yes")(vm)
+print(nwe)
+Filter with Lamda
+# Program to filter out only the even items from a list
+my_list = [1, 5, 4, 6, 8, 11, 3, 12]
+new_list = list(filter(lambda x: (x%2 == 0) , my_list))
+print(new_list)
+Filter with Map
+# Program to double each item in a list using map()
+my_list = [1, 5, 4, 6, 8, 11, 3, 12]
+new_list = list(map(lambda x: x * 2 , my_list))
+print(new_list)
+
+Python Filters Functions
+***************************
+filter (function, iterable)  
+
+def fun(variable):
+	letters = ['a', 'e', 'i', 'o', 'u']
+	if (variable in letters):
+		return True
+	else:
+		return False
+sequence = ['g', 'e', 'e', 'j', 'k', 's', 'p', 'r']
+filtered = filter(fun, sequence)
+for s in filtered:
+	print(s)
+Lamda
+seq = [0, 1, 2, 3, 5, 8, 13]
+result = filter(lambda x: x % 2 != 0, seq)
+print(list(result))
+
+Python Map Functions
+************************
+def addition(n):
+	return n + n
+numbers = (1, 2, 3, 4)
+result = map(addition, numbers)
+print(list(result))
+Lamda
+numbers = (1, 2, 3, 4)
+result = map(lambda x: x + x, numbers)
+print(list(result))
+
+Python difference between filter() and map()
+*********************************************
+As per my understanding below are the difference between map and filter:
+def even(num):
+    if(num % 2 == 0):
+        return 'Even'
+num_list = [1,2,3,4,5]
+print(list(filter(even,num_list))) ->>>>>>>output: [2, 4]
+print(list(map(even,num_list))) ->>>>>>> output: [None, 'Even', None, 'Even', None]
+
+Python File Handling
+**********************
+* Open a file
+* Read or write - Performing operation
+* Close the file
+
+Python Modules
+*********************
+A python module can be defined as a python program file which contains a python code including python functions, class, or variables. In other words, we can say that our python code file saved with the extension (.py) is treated as the module. We may have a runnable code inside the python module
+
+Ex:
+calculation.py
+def summation(a,b):  
+    return a+b  
+Main.py
+from calculation import summation    
+a = int(input("Enter the first number"))  
+b = int(input("Enter the second number"))  
+print("Sum = ",summation(a,b))
+
+from <module> import *   
+import <module-name> as <specific-name>   
+
+Python __init__.py(https://www.youtube.com/watch?v=wMTO8K1kG7Y)
+
+Python 3.2.0 blow only we use this      The __init__ method is the Python equivalent of the C++ constructor in an object-oriented approach
+
+1st ===>       We need to create	a folder name   Employee	
+2nd ===>     in that Employee folder we create a two  python file  calculate.py      and      __init__.py
+3rd ===>      create a functions link blow
+
+In that  calculate.py
+def getITNames():  
+    List = ["John", "David", "Nick",    "Martin"]  
+    return List;  
+
+In that  __init__.py 
+from  calculate  import getITNames  
+
+Now, the directory Employees has become the package containing two python modules
+
+Python Exception
+*******************
+try:
+  print(x)
+except:
+  print("Something went wrong")
+finally:
+  print("The 'try except' is finished")
+
+Python Date and time
+***********************
+* date - It is a naive ideal date. It consists of the year, month, and day as attributes.
+* time - It is a perfect time, assuming every day has precisely 24*60*60 seconds. It has hour, minute, second, microsecond, and tzinfo as attributes.
+* datetime - It is a grouping of date and time, along with the attributes year, month, day, hour, minute, second, microsecond, and tzinfo.
+* timedelta - It represents the difference between two dates, time or datetime instances to microsecond resolution.
+* tzinfo - It provides time zone information objects.
+* timezone - It is included in the new version of Python. It is the class that implements the tzinfo abstract base class.
+
+import time print(time.time())
+
+import datetime  
+print(datetime.datetime.now())    
+
+import calendar;    
+cal = calendar.month(2020,3)    
+print(cal) 
+
+import calendar    
+s = calendar.prcal(2020)
+
+Python Regular Expressions
+******************************
+Function	Description
+match	This method matches the regex pattern in the string with the optional flag. It returns true if a match is found in the string otherwise it returns false.
+search	This method returns the match object if there is a match found in the string.
+findall	It returns a list that contains all the matches of a pattern in the string.
+split	Returns a list in which the string has been split in each match.
+sub	Replace one or many matches in the string.
+
+import re  
+str = "How are you. How is everything"  
+matches = re.findall("How", str)  
+print(matches)  
+
+Python Sending Email using SMTP
+  
+import smtplib    
+sender_mail = 'sender@fromdomain.com'    
+receivers_mail = ['reciever@todomain.com']    
+message = """From: From Person %s  
+To: To Person %s  
+Subject: Sending SMTP e-mail   
+This is a test e-mail message.  
+"""%(sender_mail,receivers_mail)    
+try:    
+   smtpObj = smtplib.SMTP('localhost')    
+   smtpObj.sendmail(sender_mail, receivers_mail, message)    
+   print("Successfully sent email")    
+except Exception:    
+   print("Error: unable to send email")    
+
+Python List Comprehension
+newlist = [expression for item in iterable if condition == True] 
+
+NORMAL
+def for_loop(num):  
+    l = []  
+    for i in range(num):  
+        l.append(i + 10)  
+    return l 
+
+Using list comprehension
+def list_comprehension(num):  
+    return [i + 10 for i in range(num)] 
+
+Python OS Module
+
+import os  
+os.mkdir("d:\\newdir") 
+
+import os     
+print(os.getcwd())   
+
+Python Random module
+import random  
+print (random.randrange(100, 500, 10))  
+
+import random  
+print (random.choice([50, 41, 84, 40, 31]))  
+
+Python LIst vs Array
+
+???????
+
+Python magic comments
+*************************
+https://www.educative.io/edpresso/what-is-the-str-method-in-python
+
+Python Stack and Queue
+************************* Stack
+A Stack is a data structure that follows the LIFO(Last In First Out) principle. To implement a stack, we need two simple operations
+ Push and pop
+x = ["Python", "C", "Android"]   
+x.push("Java")   
+print(x)  
+print(x.pop()) 
+
+Queue
+A Queue follows the First-in-First-Out (FIFO) principle. It is opened from both the ends hence we can easily add elements to the back and can remove elements from the front
+import queue   
+L = queue.Queue(maxsize=10)   
+L.put(9) 
+print(L.get())   
+
+What is Web Scraping?
+Web Scraping is a technique to extract a large amount of data from several websites
+
+* Selenium- Selenium is an open-source automated testing library. It is used to check browser activities. To install this library, type the following command in your terminal.
+* Pandas
+Pandas library is used for data manipulation and analysis. It is used to extract the data and store it in the desired format.
+* BeautifulSoup
+BeautifulSoup is a Python library that is used to pull data of HTML and XML files. It is mainly designed for web scrapping. It works with the parser to provide a natural way of navigating, searching, and modifying the parse tree. The latest version of BeautifulSoup is 4.8.1
+  
+Python Multiprocessing
+*************************
+
+Multiprocessing is the ability of the system to run one or more processes in parallel. In simple words, multiprocessing uses the two or more CPU
+
+within the single computer system
+
+Python
+provides the built-in package called multiprocessing which supports swapping processes. Before working with the multiprocessing, we must aware with the process object.
+
+import multiprocessing
+
+def print_cube(num):
+	print("Cube: {}".format(num * num * num))
+def print_square(num):
+	print("Square: {}".format(num * num))
+if __name__ == "__main__":
+	# creating processes
+	p1 = multiprocessing.Process(target=print_square, args=(10, ))
+	p2 = multiprocessing.Process(target=print_cube, args=(10, ))
+	p1.start()
+	p2.start()
+	p1.join()
+	p2.join()
+	print("Done!")
+
+What does the if __name__ == “__main__”: do? (https://www.youtube.com/watch?v=IeOi4lC_gN4&t=15s/)
+
+Def nam(a, b):
+	return a+ b
+
+print(nam(2, 5)
+
+This is our function we used to add two values so we print that 
+We run this code our output link 7
+Incase  we  want to use that function we import py like
+
+From py_file_name import nam
+
+Print(nam(5, 7)
+Without  if  __name__==“__main__:
+We print   7 and 12
+We use if  __name__==“__main__:
+We print 12
+
+Python Decoraters
+
+Python that allows a user to add new functionality to an existing object without modifying its structure.
+
+def div(a,b):
+    print (a/b)
+
+def smart_div(func):
+    def inner(a,b):
+        if a<b:
+            a, b =  b,a
+        return func(a, b)sx
+    return inner
+div = smart_div(div)
+div(2,4)
+
+Oops Python (https://www.analyticsvidhya.com/blog/2020/09/object-oriented-programming/)
+*******************
+
+Class
+ A class is a collection of objects or you can say it is a blueprint of objects defining the common attributes and behaviour 
+Class name.    ===> two things 
+Attributes and behaviour ==> 
+Attributes == variables
+behaviour == Methods(functions)
+
+Object	
+
+Every thing is a objects ex: dog ,mouse, laptop, persons 
+
+For example, a car can be an object. If we consider the car as an object then its properties would be – its colour, its model, its price, its brand, etc. And its behaviour/function would be acceleration, slowing down, gear change
+
+
+Inheritance (https://www.youtube.com/watch?v=poMVuz0zndM)
+
+Create a relationship between  parents class and child class called Inheritance
+                                                (or)
+Deriving the child the class from the parent class
+
+class version1:
+    def v1(self):
+        print('Button')
+        print('text box')
+class version2(version1): # Inheritance
+    def v2(self):
+        print('Drop down list')
+if __name__ == '__main__':
+    app = version2()
+    app.v1()
+    app.v2()
+
+Polymorphism (https://www.youtube.com/watch?v=Jp-RjCPx_vA)
+
+Poly = many
+Morphism =  different behaviour
+
+class version1:
+    def button (self):
+       print("colour Red")
+class version2(version1):
+    def button (self):                                        Method over write.   Same function give different value
+        print("colour yellow")
+#instantiate objects
+a=version2 ()
+a.button()
+
+
+Encapsulation in Python (https://www.youtube.com/watch?v=n5oPKHyJvrU&t=954s)
+***********************************
+
+A class is an example of encapsulation as it encapsulates all the data that is member functions,
+variables, etc.
+
+Public and private   ===>  use to secure the data
+
+Public 
+******
+class Bank:
+    def ram(self):             #public any one can access
+        print("Name:Ram")
+        print("A/C No:12345")
+        print("Amount:10000")
+        print("Address:Salem")
+    def sam(self):		 #public any one can access
+        print("Name:Sam")                
+        print("A/C No:12346")
+        print("Amount:15000")
+        print("Address:Chennai")
+obj=Bank()
+obj.ram()
+
+Private
+*******
+1.class Bank:
+    def __init__(self):
+        self.__value = 10
+    def ram(self):
+        print("Name:Ram")
+        print("A/C No:12345")
+        print("Amount:10000")
+        print("Address:Salem")
+    def sam(self):
+        print("Name:Sam")
+        print("A/C No:12346")
+        print("Amount:15000")
+        print("Address:Chennai")
+obj=Bank()
+obj.ram()
+Print(“value”, obj.value)          # we cont access     so we to change
+
+2.class Bank:
+    def __init__(self):
+        self.__value = 10
+    def ram(self):
+        print(self.__value)
+        print("Name:Ram")
+        print("A/C No:12345")
+        print("Amount:10000")
+        print("Address:Salem")
+obj=Bank()
+obj.ram()                                   # now you got that output
+
+3.class Bank:
+    def __ram(self):                #new change
+        print("Name:Ram")
+        print("A/C No:12345")
+        print("Amount:10000")
+        print("Address:Salem")
+    def sam(self):
+        print("Name:Sam")
+        print("A/C No:12346")
+        print("Amount:15000")
+        print("Address:Chennai")
+obj=Bank()
+obj.ram()           # we cont acces
+
+4.class Bank:
+    def __init__(self):
+        self.__value = 10
+    def __ram(self):
+        print(self.__value)
+        print("Name:Ram")
+        print("A/C No:12345")
+        print("Amount:10000")
+        print("Address:Salem")
+    def sam(self):
+        self.__ram()                         # now we can access
+        print("Name:Sam")
+        print("A/C No:12346")
+        print("Amount:15000")
+        print("Address:Chennai")
+obj=Bank()
+obj.sam()
+
+Another Method
+*****************
+class Bank:
+    def __ram(self):                        # private function
+        print("Name:Ram")
+        print("A/C No:12345")
+        print("Amount:10000")
+        print("Address:Salem")
+    def sam(self):
+        print("Name:Sam")
+        print("A/C No:12346")
+        print("Amount:15000")
+        print("Address:Chennai")
+
+obj=Bank()
+obj._Bank__ram()
+
+Python __init__
+*****************
+
+The __init__ method is similar to constructors in C++ and Java. Constructors are used to initialize the object’s state 
+
+# A Sample class with init method
+class Person:
+	# init method or constructor
+	def __init__(self, name):
+		self.name = name
+
+	# Sample Method
+	def say_hi(self):
+		print('Hello, my name is', self.name)
+
+p = Person('Nikhil')
+p.say_hi()
+
+Python Abstraction(https://www.youtube.com/watch?v=g6nTTPgTCRI&t=28s)
+****************************
+Abstraction is used to hide the internal functionality of the function
+from the users.
+The users only interact with the basic implementation of the function,
+but inner working is hidden
+
+Internal (process)function ex:pandas is a package ex:Atm
+
+Python JSON
+
+JSON stands for JavaScript Object Notation, which is a widely used data format for data interchange on the web
+
+import json  
+#Python  list conversion to JSON  Array   
+print(json.dumps(['Welcome', "to", "javaTpoint"]))  
+#Python  tuple conversion to JSON Array   
+print(json.dumps(("Welcome", "to", "javaTpoint")))  
+# Python string conversion to JSON String   
+print(json.dumps("Hello"))  
+# Python int conversion to JSON Number   
+print(json.dumps(1234))  
+# Python float conversion to JSON Number   
+print(json.dumps(23.572))  
+# Boolean conversion to their respective values   
+print(json.dumps(True))  
+print(json.dumps(False))  
+# None value to null   
+print(json.dumps(None))   
+
+python pydantic
+
+https://betterprogramming.pub/the-beginners-guide-to-pydantic-ba33b26cde89
+
+
