@@ -1,0 +1,320 @@
+Five features of Fastapi
+Created by Thirumoorthi (Unlicensed)
+Mar 01, 20224 min read
+2 people viewed
+Mounting applications, API routers, Jinja templates & much more
+ 
+
+Reference Link  : 
+
+https://levelup.gitconnected.com/5-advance-features-of-fastapi-you-should-try-7c0ac7eebb3e
+
+ 
+
+1 .Different requests can do their task completion in no particular order
+
+create a python file dashboard.py
+
+Code :
+
+
+from dash import html
+from dash import dcc
+import dash_bootstrap_components as dbc
+import dash
+
+dash_app = dash.Dash(__name__,requests_pathname_prefix='/dashboard/', title='Kaustubh Demo')
+
+header = dbc.Row(
+    dbc.Col(
+        [
+            html.Div(style={"height": 30}),            
+            html.H1("Demo", className="text-center"),        ]
+    ),    
+    className="mb-4",)
+
+dash_app.layout = dbc.Container(
+    [
+        header,    
+        ],    
+        fluid=True,    
+        className="bg-light",)
+To include this dash server as an independent application within FastAPI
+
+create another python file dash_rout.py
+
+Code :
+
+
+from fastapi import FastAPI
+from fastapi.middleware.wsgi import WSGIMiddleware
+from dashboard import dash_app
+import uvicorn
+
+app = FastAPI()
+app.mount("/dashboard", WSGIMiddleware(dash_app.server))
+
+@app.get('/')
+def index():
+    return "Hello"
+if __name__ == "__main__":
+    uvicorn.run("api_rout:app", host='0.0.0.0', port=8000, reload=True)
+Run :
+
+INFO:     127.0.0.1:38420 - "GET / HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:38420 - "GET / dashboard/HTTP/1.1  307 temprary redirect
+
+2. Mount different FastAPI apps for different routes
+Following the same rules of mounting different WSGI applications for different routes, you can also mount different FastAPI applications within the FastAPI application.
+
+create the python file apiv1.py
+
+Code :
+
+
+from fastapi import FastAPI
+
+
+apiv1 = FastAPI()
+
+@apiv1.get('/Name')
+def index():
+    return {"Name": "Kaustubh demo"}
+create the python file apiv2.py
+
+Code :
+
+
+from fastapi import FastAPI
+
+apiv2 = FastAPI()
+
+@apiv2.get('/Location')
+def index():
+    return {"Location": "India"}
+create the main python file master.py
+
+Code :
+
+
+from fastapi import FastAPI
+from apiv1 import apiv1
+from apiv2 import apiv2
+import uvicorn
+
+app = FastAPI()
+app.mount("/v1", apiv1)
+app.mount("/v2", apiv2)
+
+
+@app.get('/')
+def index():
+    return "Hello"
+if __name__ == "__main__":
+    uvicorn.run("master:app", host='127.0.0.1', port=8001, reload=True)
+ 
+
+Run :
+
+INFO:     127.0.0.1:38420 - "GET / HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:38420 - "GET / v1/Name HTTP/1.1" 200 OK
+
+INFO:     127.0.0.1:38420 - "GET /v2/Location  HTTP/1.1" 200 OK
+
+3. Separate your FastAPI Routes into different files
+ 
+
+It usually happens that as your application grows bigger, it becomes a mess to manage all the routes in one place.
+
+create the python file books.py
+
+Code : 
+
+
+from fastapi import APIRouter
+
+
+bookroute = APIRouter()
+
+@bookroute.get('/info')
+def books():
+    return {"detail": "This book info is from the book APIRouter",    "name": "Hello",    "ISBN": "32DS3"}
+create the second python file novel.py
+
+Code :
+
+
+from fastapi import APIRouter
+
+
+novelroute = APIRouter()
+
+@novelroute.get('/info')
+def novels():
+    return {"detail": "This novel info is from the novel APIRouter",    "name": "I am good",    "publication": "Kaustubh"}
+Create the main python file demo.py
+
+Code :
+
+
+from fastapi import FastAPI
+from book import bookroute
+from novel import novelroute
+import uvicorn
+
+app = FastAPI()
+app.include_router(bookroute, prefix="/book")
+app.include_router(novelroute, prefix="/novel")
+
+
+@app.get('/demo/')
+def index():
+    return "Hello"
+if __name__ == "__main__":
+    uvicorn.run("demo:app", host='127.0.0.1', port=8002, reload=True)
+Run :
+
+'http://127.0.0.1:8002/book/info'  return output
+
+'http://127.0.0.1:8002/novel/info' return output
+
+'http://127.0.0.1:8002/demo/info'  return output
+
+4. Add static files and Jinja templates
+FastAPI is not limited to serving as a framework for creating APIs. You can serve static files such as HTML, CSS, JS and incorporate Jinja templating engine, as you would do in Flask. This means that you can host a complete website with FastAPI.
+
+step1 :
+
+create a folder in templates
+
+step 2 :
+
+create demo.html file with in the templates folder
+
+Code :
+
+
+
+<!doctype html><html lang="en">
+<head>    
+<title>{{title}}</title>
+</head>
+<body>{{body_content}}
+</body>
+</html>
+ 
+
+step 3 :
+
+create the python file demo2.py
+
+Code :
+
+
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
+import uvicorn
+
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get('/', response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("demo.html", {"request": request, "title": "Aimp demo", "body_content": "This is the demo for using FastAPI with Jinja templates"})
+
+if __name__ == "__main__":
+    uvicorn.run("demo2:app", host='127.0.0.1', port=8006, reload=True)
+ 
+
+Run :
+
+
+ 
+
+Method 2 :
+
+Create an object for StaticFiles class from the fast API static files module and provide the folder path to the static file. Again, no constraint on the folder name.
+
+Create the python file demo3.py
+
+create a static folder paste the any image test.jpg
+
+Code :
+
+
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+import uvicorn
+
+app = FastAPI()
+staticfiles = StaticFiles(directory="static")
+app.mount("/static", staticfiles, name="static")
+templates = Jinja2Templates(directory="templates")
+
+
+@app.get('/', response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("demo2.html", {"request": request, "title": "Kaustubh Demo", "body_content": "This is the demo for using FastAPI with Jinja templates"})
+
+if __name__ == "__main__":
+    uvicorn.run("demo3:app", host='127.0.0.1', port=8007, reload=True)
+Create the hmlt file demo2.html with templates folder
+
+Code :
+
+
+<!doctype html>
+<html lang="en">
+<head>    
+<title>{{title}}</title></head>
+<body>{{body_content}}
+<img src="/static/test.jpg"></body>
+</html>
+Output 
+
+
+5. Simulate Configuration Handling of Flask in FastAPI App
+If you are someone who has been using the Flask web framework for quite some time, you must be aware of app configurations.
+
+create the python file flask_config.py
+
+Code :
+
+
+from flask import Flask
+app = Flask(__name__)
+app.config['appName'] = 'Kaustubh Demo'
+@app.route('/')def index():    
+return "Hello: {}".format(app.config['appName'])
+
+if __name__ == "__main__":    app.run(debug=True)
+this sample in flask configaration
+
+Create the python file config.py
+
+Code :
+
+
+from pydantic import BaseSettings
+
+class Settings(BaseSettings):
+    appName: str = "Aimp"
+    openapi_url: str = ''
+Create the main python file fastapi_config.py
+
+Code :
+
+
+from fastapi import FastAPIfrom config import Settingsimport uvicorn
+setting = Settings()app = FastAPI(openapi_url=setting.openapi_url)
+@app.get('/')def index():    return "Hello: {}".format(setting.appName)
+if __name__ == "__main__":    uvicorn.run("fastapi_config:app", host='127.0.0.1', port=8000, reload=True)
+Output  :
+
+Hello ,Aimp
