@@ -1,0 +1,105 @@
+hive web site
+
+ 
+
+How to Install Apache Hive on Ubuntu {Step-by-Step Guide} 
+
+Line error code 
+
+Hive throws: WstxParsingException: Illegal character entity: expansion character (code 0x8)
+
+Error
+
+Cannot find hadoop installation: $HADOOP_HOME must be set or hadoop must be in the path 
+
+Final Error
+
+Exception in thread  main  java lang IllegalArgumentException  java net URISyntaxException  Relative path in absolute URI    system java io tmpdir 7D   7Bsystem user name 7D 
+
+ 
+
+
+wget https://downloads.apache.org/hive/hive-3.1.2/apache-hive-3.1.2-bin.tar.gz
+
+tar xzf apache-hive-3.1.2-bin.tar.gz
+
+mv apache-hive-3.1.2-bin hive
+
+vi .bashrc
+
+export HIVE_HOME="/home/hadoop/hive"
+export PATH=$PATH:$HIVE_HOME/bin
+
+source ~/.bashrc
+
+sudo vi $HIVE_HOME/bin/hive-config.sh
+
+export HADOOP_HOME=/home/hadoop/hadoop
+
+hdfs dfs -mkdir /tmp
+
+hdfs dfs -chmod g+w /tmp
+
+hdfs dfs -ls /
+
+hdfs dfs -mkdir -p /user/hive/warehouse
+hdfs dfs -chmod g+w /user/hive/warehouse
+hdfs dfs -ls /user/hive
+cd $HIVE_HOME/conf
+cp hive-default.xml.template hive-site.xml
+vi hive-site.xml
+#Please confirm.   1. line :set number 2.search /metastore 3. line number 3210,96 we have spical character we need ton remove 
+
+
+ls $HIVE_HOME/lib
+
+ls $HADOOP_HOME/share/hadoop/hdfs/lib
+
+rm $HIVE_HOME/lib/guava-19.0.jar
+cp $HADOOP_HOME/share/hadoop/hdfs/lib/guava-27.0-jre.jar $HIVE_HOME/lib/
+$HIVE_HOME/bin/schematool -dbType derby -initSchema
+
+cd $HIVE_HOME/bin
+
+hive
+ 
+
+Here you have add the following properties in hive-site.xml file.
+
+
+error like this 
+
+use this
+
+
+cd $HIVE_HOME/conf
+
+vi hive-site.xml
+
+<property>
+    <name>system:java.io.tmpdir</name>
+    <value>/tmp/hive/java</value>
+</property>
+<property>
+    <name>system:user.name</name>
+    <value>${user.name}</value>
+</property>
+
+cd $HIVE_HOME/bin
+
+hive
+
+hadoop@user-Latitude-3400:~/hive/bin$ hive
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/hadoop/hive/lib/log4j-slf4j-impl-2.10.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/hadoop/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Hive Session ID = f43507ef-31c1-47b0-b388-48cb3e19264e
+
+Logging initialized using configuration in jar:file:/home/hadoop/hive/lib/hive-common-3.1.2.jar!/hive-log4j2.properties Async: true
+Hive Session ID = db0785d8-0416-4e3c-83ad-f9a5de707aab
+Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+hive> 
+
+Sucess
