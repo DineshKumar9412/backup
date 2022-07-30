@@ -1,0 +1,33 @@
+Object Detection And Measure H & W using opencv
+Created by Hari Kumar R
+Last updated: Feb 15, 20221 min read
+1 person viewed
+object detection method
+
+OpenCV checks the size of the object through the image Python 
+
+Measure size of an Object | with Opencv, Aruco marker and Python - Pysource 
+
+Calculating the Size of Objects in Photos with Computer Vision 
+
+Improve contour detection with OpenCV (Python) 
+
+
+import cv2
+from object_detection import *
+
+img = cv2.imread("third.jpg")
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+mask = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 19, 5)
+
+contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+## objects_contours = []for cnt in contours:
+    area = cv2.contourArea(cnt)
+    # print(area)    if area > 2000:
+        objects_contours.append(cnt)
+
+# countors = decorator.detect_object(img)cv2.imshow("hgh", mask)
+cv2.waitKey(0)
+OpenCV Contour Approximation - PyImageSearch 
