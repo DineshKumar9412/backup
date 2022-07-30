@@ -1,0 +1,255 @@
+how to install hadoop
+
+How to Install and Configure Hadoop on Ubuntu 20.04 
+
+ 
+
+
+sudo apt update 
+sudo apt install openjdk-8-jdk
+ 
+
+
+java -version
+
+
+openjdk version "1.8.0" 2021-04-20
+OpenJDK Runtime Environment (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)
+OpenJDK 64-Bit Server VM (build 11.0.11+9-Ubuntu-0ubuntu2.20.04, mixed mode, sharing)
+
+sudo adduser hadoop
+
+
+Adding user `hadoop' ...
+Adding new group `hadoop' (1002) ...
+Adding new user `hadoop' (1002) with group `hadoop' ...
+Creating home directory `/home/hadoop' ...
+Copying files from `/etc/skel' ...
+New password:
+Retype new password:
+passwd: password updated successfully
+Changing the user information for hadoop
+Enter the new value, or press ENTER for the default
+        Full Name []:
+        Room Number []:
+        Work Phone []:
+        Home Phone []:
+        Other []:
+Is the information correct? [Y/n] y
+
+sudo usermod -aG sudo "username"
+
+sudo usermod -aG sudo hadoop
+
+su - hadoop 
+
+ssh-keygen -t rsa 
+
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/hadoop/.ssh/id_rsa):
+Created directory '/home/hadoop/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/hadoop/.ssh/id_rsa
+Your public key has been saved in /home/hadoop/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:QSa2syeISwP0hD+UXxxi0j9MSOrjKDGIbkfbM3ejyIk hadoop@ubuntu20
+The key's randomart image is:
++---[RSA 3072]----+
+| ..o++=.+        |
+|..oo++.O         |
+|. oo. B .        |
+|o..+ o * .       |
+|= ++o o S        |
+|.++o+  o         |
+|.+.+ + . o       |
+|o . o * o .      |
+|   E + .         |
++----[SHA256]-----+
+
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys 
+chmod 640 ~/.ssh/authorized_keys
+ 
+
+
+ssh localhost
+
+The authenticity of host 'localhost (127.0.0.1)' can't be established.
+ECDSA key fingerprint is SHA256:JFqDVbM3zTPhUPgD5oMJ4ClviH6tzIRZ2GD3BdNqGMQ.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+
+
+Any error try this
+
+sudo apt-get install openssh-server
+
+su - hadoop
+
+wget https://archive.apache.org/dist/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
+
+tar -xvzf hadoop-3.3.0.tar.gz
+
+mv hadoop-3.3.0.tar.gz hadoop 
+
+chmod 777 hadoop
+
+#we using vim
+sudo apt-get install vim
+
+vi ~/.bashrc 
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export HADOOP_HOME=/home/hadoop/hadoop
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export HADOOP_YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+
+source ~/.bashrc
+
+
+vi $HADOOP_HOME/etc/hadoop/hadoop-env.sh 
+
+#First Method (working)
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+# Second Method (Not working) (Ganesh Sir)
+export JAVA_HOME=$JAVA_HOME
+export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+export HADOOP_SSH_OPTS="-p 22"
+
+source ~/.bashrc
+
+mkdir -p ~/hadoopdata/hdfs/namenode 
+mkdir -p ~/hadoopdata/hdfs/datanode 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+
+vi $HADOOP_HOME/etc/hadoop/core-site.xml  
+
+<configuration>
+        <property>
+                <name>fs.defaultFS</name>
+                <value>hdfs://localhost:9000</value>
+        </property>
+</configuration>
+
+vi $HADOOP_HOME/etc/hadoop/hdfs-site.xml
+
+<configuration>
+ 
+        <property>
+                <name>dfs.replication</name>
+                <value>1</value>
+        </property>
+ 
+        <property>
+                <name>dfs.name.dir</name>
+                <value>file:///home/hadoop/hadoopdata/hdfs/namenode</value>
+        </property>
+ 
+        <property>
+                <name>dfs.data.dir</name>
+                <value>file:///home/hadoop/hadoopdata/hdfs/datanode</value>
+        </property>
+</configuration>
+
+vi $HADOOP_HOME/etc/hadoop/mapred-site.xml 
+
+<configuration>
+        <property>
+                <name>mapreduce.framework.name</name>
+                <value>yarn</value>
+        </property>
+</configuration>
+
+vi $HADOOP_HOME/etc/hadoop/yarn-site.xml
+
+<configuration>
+        <property>
+                <name>yarn.nodemanager.aux-services</name>
+                <value>mapreduce_shuffle</value>
+        </property>
+</configuration>
+
+hdfs namenode -format 
+
+
+2020-11-23 10:31:51,318 INFO namenode.NNStorageRetentionManager: Going to retain 1 images with txid >= 0
+2020-11-23 10:31:51,323 INFO namenode.FSImage: FSImageSaver clean checkpoint: txid=0 when meet shutdown.
+2020-11-23 10:31:51,323 INFO namenode.NameNode: SHUTDOWN_MSG:
+/************************************************************
+SHUTDOWN_MSG: Shutting down NameNode at hadoop.tecadmin.net/127.0.1.1
+************************************************************/
+
+start-dfs.sh 
+
+Starting namenodes on [localhost]
+Starting datanodes
+Starting secondary namenodes [user-pc]
+
+start-yarn.sh 
+
+Starting resourcemanager
+Starting nodemanagers
+
+jps 
+
+27858 Nodeanager
+27270 DataNode
+28217 Jps
+27706 ResourceManager
+27084 NameNode
+27485 SecondaryNameNode
+
+# NO Need to do that (if you want)
+
+firewall-cmd --permanent --add-port=9870/tcp 
+firewall-cmd --permanent --add-port=8088/tcp 
+
+firewall-cmd --reload 
+
+ 
+
+
+http://localhost:9870
+http://localhost:8088
+
+Veryfi the hasdoop cluster
+
+hdfs dfs -mkdir /test1
+hdfs dfs -mkdir /logs 
+
+hdfs dfs -ls / 
+
+Found 3 items
+drwxr-xr-x   - hadoop supergroup          0 2020-11-23 10:56 /logs
+drwxr-xr-x   - hadoop supergroup          0 2020-11-23 10:51 /test1
+
+hdfs dfs -put /var/log/* /logs/
+
+http://localhost:9870/explorer.html
+
+stop
+
+stop-dfs.sh
+
+stop-yarn.sh
