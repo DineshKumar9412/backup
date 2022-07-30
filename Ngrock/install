@@ -1,0 +1,98 @@
+username = harikumar.r@oasys.co
+
+password = Diny@94123
+
+step 1:
+
+download the file  ngrok - download 
+
+ 
+
+step2:
+
+Login in to ngrok - Online in One Line 
+
+and copy your AuthToken like this 1qD0n4612fAgGGdaN8yQs6Dzxw5_5wnmYpoEo7nJbEGLFDHRM
+
+ 
+
+
+ 
+
+ 
+
+step 3:
+
+Extract and Move in to  cp ngrok /usr/local/bin
+
+ 
+
+step 4:
+
+run the blow command to copy your AuthToken into Ngrok.yml
+
+ 
+
+ngrok authtoken 1qD0n4612fAgGGdaN8yQs6Dzxw5_5wnmYpoEo7nJbEGLFDHRM
+
+ 
+
+output like this
+
+Authtoken saved to configuration file: /home/diny-1781/.ngrok2/ngrok.yml 
+
+ 
+
+step 5:
+
+use your terminal 
+
+diny-1781@diny1781-Latitude-3400:~$ ngrok
+
+ 
+
+setp 6:
+
+run your terminal
+
+ngrok http 8000
+
+check is working are not
+
+ 
+
+step 7:
+
+how to run multiple ports
+
+update the ngrok.yml file located in /home/diny-1781/.ngrok2/ngrok.yml
+
+enter
+
+install vim first
+
+vi ngrok.yml      and paste this  and  :wq 
+
+tunnels:
+first:
+addr: 5000
+proto: http
+bind_tls: false
+second:
+addr: 5001
+proto: http
+bind_tls: false
+third:
+addr: 5002
+proto: http
+bind_tls: false
+fourth:
+addr: 5003
+proto: http
+bind_tls: false
+
+step 8:
+
+final  how to run all port 
+
+ngrok start -all
