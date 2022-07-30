@@ -1,3 +1,45 @@
+Docker setup
+
+Step 1:
+
+install Docker in your machine 
+
+step2:
+
+in your pycham environment  check :   docker --version
+
+step3:
+
+create a new dockerfile:
+
+ex:  new ==> file == > Dockerfile
+
+step 4:
+
+in your docker file:
+
+
+FROM python:3.8
+
+ADD requirements.txt .
+
+RUN pip install -r requirements.txt
+
+ADD Voice_to_text.py .
+
+CMD [ "python", "Voice_to_text.py" ]
+step 5:
+
+in your terminal:
+
+docker build -t “Your_file_name“
+
+ex:  docker build -t voice_to_text .
+
+ 
+
+
+
 docker install step:
 
 reference link :-
