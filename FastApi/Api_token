@@ -1,0 +1,194 @@
+API Tokenization and Rate limitation
+Created by Thirumoorthi (Unlicensed)
+Mar 01, 20226 min read
+2 people viewed
+create tokenization and API rate limitation using Redis.
+
+API Tokenization creation :
+
+ 
+
+
+from fastapi import FastAPI, File, UploadFile,Form, Request, HTTPException, status
+import uvicorn
+import jwt
+from pydantic import BaseModel
+#from redis_test import limiter
+
+class Item(BaseModel):
+    my_value: str
+
+class na_item(BaseModel):
+    u_name:str
+    pas_wo:str
+
+app = FastAPI()
+
+@app.post("/sing_up")
+async def analyze_route(to_val:na_item):
+    try:
+          name = to_val.u_name
+          pas = to_val.pas_wo
+          payload = {
+                      "user_id": name,
+                      "password": pas,
+                  }
+          JWT_SECRET = "ca88f10711ec297152dce765b2e8404b"
+          JWT_ALGORITHM = "HS256"
+          name = payload['user_id']
+          paswrd = payload['password']
+          sec_token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)         
+
+          return {"result": sec_token}
+    except Exception as e:
+        return {"Success": "false", "Result":str(e) }
+ 
+
+Get the username and password we create the encryption key using pyjwt.
+
+ex :
+
+result = “eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiVGhpcnUiLCJwYXNzd29yZCI6InRoaXJ1QDEyMyJ9.sGS28HfRVyDRBUdCpKSKLnK5qPyXUJW0woqdu7TXLV0”
+
+ 
+
+API Tokenization verfication :
+
+ 
+
+
+@app.post("/tocken and rate limit ")
+async def create_upload_file(my_value: str):
+
+    try:
+        token_va = Item(my_value= my_value)
+        token = token_va.my_value
+        JWT_SECRET = "ca88f10711ec297152dce765b2e8404b"        
+        JWT_ALGORITHM = "HS256"        
+        decoded_token = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        print(decoded_token)
+
+        if decoded_token :
+          return {"result":"welcome to Aimp"}
+    except Exception as e:
+        return { "result":"Wrong username and password" }
+ 
+
+Get the encryption key we can verify  or decode the key 
+
+API Count using redis :
+
+Redis sample code 
+
+create the python file like redis_test.
+
+
+import redis
+
+def limiter(key, limit):
+    client = redis.Redis(host="localhost", port=6379)
+    req = client.incr(key)     #Its using api count
+    print("its working", req)
+
+    if req == 1:
+        client.expire(key, 60) # 60 means 60 Sec.
+        ttl = 60  
+    else:
+        ttl = client.ttl(key)
+    if req > limit:
+        return {
+            "call": False,            
+            "ttl": ttl
+        }
+    else:
+        return {
+            "call": True,            
+            "ttl": ttl
+
+        }
+ 
+
+Rate limit API :
+
+ 
+
+
+from fastapi import FastAPI, File, UploadFile,Form, Request, HTTPException, status
+import uvicorn
+import jwt
+from pydantic import BaseModel
+from redis_test import limiter
+
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",  user="root",  password="root@123",  database="aimp")
+mycursor = mydb.cursor()
+
+
+class Item(BaseModel):
+    my_value: strclass 
+na_item(BaseModel):
+    u_name:str    
+    pas_wo:str
+    app = FastAPI()
+
+@app.post("/sing_up")
+async def analyze_route(to_val:na_item):
+    try:
+          name = to_val.u_name
+          pas = to_val.pas_wo
+          payload = {
+                      "user_id": name,                      
+                      "password": pas,                  
+                      }
+          JWT_SECRET = "ca88f10711ec297152dce765b2e8404b"          
+          JWT_ALGORITHM = "HS256"          
+          name = payload['user_id']
+          paswrd = payload['password']
+          sec_token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+          sql = """INSERT INTO register VALUES(%s,%s,%s)"""          
+          inp_val = (name, paswrd,sec_token)
+          print(inp_val)
+          mycursor.execute(sql, inp_val,sec_token)
+          mydb.commit()
+
+          return {"result": sec_token}
+
+    except Exception as e:
+        return {"Success": "false", "Result":str(e) }
+
+
+@app.post("/tocken and rate limit ")
+async def create_upload_file(my_value: str,request: Request):
+    try:
+        token_va = Item(my_value= my_value)
+        token = token_va.my_value
+        JWT_SECRET = "ca88f10711ec297152dce765b2e8404b"        
+        JWT_ALGORITHM = "HS256"        
+        decoded_token = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        print(decoded_token)
+
+        if decoded_token :
+
+            option = 5            
+            clientIp = request.client.host
+
+            res = limiter(clientIp, option)
+            if res["call"]:
+                return {
+                    "message": "welcome to aimp",                   
+                     "ttl": res["ttl"]
+                }
+            else:
+                return {
+                    "message": "call limit reached",                    
+                    "ttl": res["ttl"]
+                }
+                # raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail={                #     "message": "call limit reached",                #     "ttl": res["ttl"]                # })    except Exception as e:
+        return { "result":str(e) }
+if __name__ == '__main__':
+    uvicorn.run('tocken_ratelimit:app', port=8005, host='0.0.0.0',reload=True,debug=True)
+#
+Users can only 5 time access in our API per 60 Sec otherwise you can reached call limit .
+
