@@ -1,0 +1,95 @@
+How to install and connect Mysql and Workbench 
+
+How to Install MySQL on Ubuntu | How To Install MySQL Workbench and Connect to MySQL Server 
+
+ 
+
+Create User
+
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+
+GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
+
+FLUSH PRIVILEGES;
+
+Mysql Password change Commands
+
+Reference :grinning:
+
+Change Authentication Method For MySQL Root User In Ubuntu - OSTechNix 
+
+First step:
+
+SELECT user,authentication_string,plugin,host FROM mysql.user;
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'test'; 
+
+ 
+
+packages
+
+pip install mysql-connector-python
+
+ 
+
+Database Connectivity check
+
+sample Code
+
+
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="root@123"
+  
+
+)
+
+ 
+
+mysql.connector used to connect mysql in python
+
+localhost = host name
+
+user = user name in mycase we have root user but we also create oasys you want use this oasys user = ‘oasys’
+
+password = your mysql password
+
+create database
+
+mycursor = mydb.cursor()
+
+mycursor.execute("CREATE DATABASE mydatabase")
+
+create database for new database creation 
+
+table creation
+
+mycursor = mydb.cursor()
+
+mycursor.execute("CREATE TABLE customers (name VARCHAR(255), address VARCHAR(255))")
+
+create table for new table creation and name for is new attribute ,varchar means string type(255) for strenth of string,customer for table name
+
+show tables
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SHOW TABLES")
+
+for x in mycursor:
+  print(x)
+
+show tables for all tables show
+
+values insert
+
+mycursor = mydb.cursor()
+
+sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
+val = ("John", "Highway 21")
+mycursor.execute(sql, val)
+
+mydb.commit()
