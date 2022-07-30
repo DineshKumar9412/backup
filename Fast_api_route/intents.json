@@ -1,0 +1,43 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
+         "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
+         "context": [""]
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+         "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+         "context": [""]
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure"],
+         "context": [""]
+        },
+        {"tag": "sliksarees",
+         "patterns": ["slik sarees", "Slik Sarees", "SlikSarees", "sliksaree", "Slik Saree"],
+         "responses": ["<div class =\"server-link\">\n<a class=\"nav-link icon-left both\" href=\"index.php?route=product/category&amp;path=61\" title=\"Silk Sarees\"  target=\"_blank\">\nSilk Sarees\n</a></div>"],
+         "context": [""]
+        },
+        {"tag": "silkcottonsarees",
+         "patterns": ["Silk Cotton Sarees", "CottonSarees", "Cotton Saree", "Silk Cotton Saree", "Slik cotton saree"],
+         "responses": ["<div class =\"server-link\">\n<a class=\"nav-link icon-left both\" href=\"index.php?route=product/category&amp;path=143\" title=\"Silk Cotton Sarees\"  target=\"_blank\">\nSilk Cotton Sarees\n</a></div>"],
+         "context": [""]
+        },
+        {"tag": "Shirts",
+         "patterns": ["shirts", "mens Shirts", "shirt", "men shirt", "mens shirt"],
+         "responses": ["<div class =\"server-link\">\n<a class=\"nav-link icon-left both\" href=\"index.php?route=product/category&amp;path=92\" title=\"Shirts\"  target=\"_blank\">\nShirts\n</a></div>"],
+         "context": [""]
+        },
+        {"tag": "hometextiles",
+         "patterns": ["Home Textiles", "Home textiles", "Home made", "hand made", "homemade","hometextiles","home textiles","hometextiles"],
+         "responses": ["<div class =\"server-link\">\n<a class=\"nav-link icon-left both\" href=\"index.php?route=product/category&amp;path=142\" title=\"Shirts\"  target=\"_blank\">\nHome Textiles\n</a></div>"],
+         "context": [""]
+        },
+        {"tag": "accessories",
+         "patterns": ["Accessories", "accessories", "accessories"],
+         "responses": ["<div class =\"server-link\">\n<a class=\"nav-link icon-left both\" href=\"index.php?route=product/category&amp;path=175\" title=\"Accessories\"  target=\"_blank\">\nAccessories\n</a></div>"],
+         "context": [""]
+        }
+   ]
+}
