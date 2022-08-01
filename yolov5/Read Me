@@ -1,1 +1,86 @@
-yes
+https://docs.ultralytics.com/tutorials/pytorch-hub/
+
+https://issueexplorer.com/issue/ultralytics/yolov5/36
+
+https://docs.ultralytics.com/tutorials/pytorch-hub/
+
+how to install python 3.6
+
+
+pip install -r https://raw.githubusercontent.com/ultralytics/yolov5/master/requirements.txt
+
+our code
+
+
+import cv2
+import torch
+from PIL import Image
+import glob
+import matplotlib.pyplot as plt
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
+
+# model = torch.hub.load('ultralytics/yolov5', 'custom', path='pt_files/Aadhar.pt')  # custom model
+model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+CUDA_VISIBLE_DEVICES = "0"
+
+model.conf = 0.50  # confidence threshold (0-1)
+model.iou = 0.5  # NMS IoU threshold (0-1)
+model.classes = [0]
+
+test_img_path = 'zidane.jpeg'
+image = cv2.imread(test_img_path)
+
+test_imgs = sorted(glob.glob(test_img_path))
+print(len(test_imgs))
+#
+for img in test_imgs:
+    img2 = cv2.imread(img)[:, :, ::-1]
+    imgs = [img2]
+    # print(img2)
+    results = model(imgs, size=640)
+    results.print()
+    # print(results.xyxy[0])
+    # print(results.pandas().xyxy[0])
+    a = results.pandas().xyxy[0]
+    name = a['name']
+    # s = list(a)
+    s = a.values.tolist()
+    # h = name.values
+    h = name.values.tolist()
+
+    for f,j in zip(s,h):
+        a = (f[0:4])
+        print(a)
+        # start_point = (int(xmax), int(ymin))
+        # end_point = (int(xmin), int(ymax))
+        start_point = (int(a[2]), int(a[1]))
+        # start_point = (int(a[0]))
+        # print(start_point)
+        end_point = (int(a[0]), int(a[3]))
+        # print(int(a[0]))
+
+        color = (0, 0, 255)
+        thickness = 6
+        fontScale = 3
+        color = (0, 0, 255)
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        org = (50, 50)
+        image = cv2.rectangle(image, start_point, end_point, color, thickness)
+
+        image = cv2.putText(image, j,(int(a[0]),int(a[1])), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0),  thickness=2)
+
+
+cv2.imshow("Test", image)
+cv2.waitKey(0)
+cv2.destroyWindow()
+ 
+
+Yolo Points 
+
+x = int(a[0])
+y = int(a[1])
+h = int(a[3])
+w = int(a[2])
