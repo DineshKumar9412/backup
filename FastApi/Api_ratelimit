@@ -3,8 +3,10 @@ Created by Thirumoorthi (Unlicensed)
 Mar 01, 20223 min read
 2 people viewed
 Referense link : Ratelimit in Fastapi 
+https://stackoverflow.com/questions/65491184/ratelimit-in-fastapi
 
 2.API Throttling using Redis and FastAPI (Dockerized) 
+https://sayanc20002.medium.com/api-throttling-using-redis-and-fastapi-dockerized-98a50f9495c
 
 we have four methods
 
