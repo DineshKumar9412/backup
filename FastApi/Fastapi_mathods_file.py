@@ -180,6 +180,7 @@ async def analyze_route(input:str, fgg:float):
 String value (Multiple )
 
 Query Parameters and String Validations - FastAPI 
+https://fastapi.tiangolo.com/tutorial/query-params-str-validations/
 
 async def read_items(q: Optional[str] = Query(None, min_length=3, max_length=50)):
 
@@ -223,10 +224,13 @@ print(filenae)
 BaseModel
 
 How to upload both file and JSON data using FastAPI? 
+https://stackoverflow.com/questions/70535711/error-in-multipart-form-data-request-using-pydantic-basemodel-in-fastapi
 
 What are the advantages of using Depends in FastAPI over just calling a dependent function/class? 
+https://stackoverflow.com/questions/61871147/what-are-the-advantages-of-using-depends-in-fastapi-over-just-calling-a-dependen
 
 How to add both file and JSON body in a FastAPI POST request? 
+https://stackoverflow.com/questions/65504438/how-to-add-both-file-and-json-body-in-a-fastapi-post-request/70640522#70640522
 
 Api Security In FastApi:
 
@@ -256,6 +260,7 @@ if __name__ == '__main__':
  
 
 Api Token In FastApi using JWT (Securing FastAPI with JWT Token-based Authentication )
+https://testdriven.io/blog/fastapi-jwt-auth/
 
 step1:
 
