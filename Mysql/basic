@@ -1,4 +1,5 @@
 How to install and connect Mysql and Workbench 
+https://www.youtube.com/watch?v=IWXQeXHDerg&t=62s
 
 How to Install MySQL on Ubuntu | How To Install MySQL Workbench and Connect to MySQL Server 
 
@@ -15,6 +16,7 @@ FLUSH PRIVILEGES;
 Mysql Password change Commands
 
 Reference :grinning:
+https://ostechnix.com/change-authentication-method-for-mysql-root-user-in-ubuntu/
 
 Change Authentication Method For MySQL Root User In Ubuntu - OSTechNix 
 
