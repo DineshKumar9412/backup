@@ -4,16 +4,20 @@ Important Topics
 
 1 person viewed
 FastApi  Topics (New)
+https://levelup.gitconnected.com/5-advance-features-of-fastapi-you-should-try-7c0ac7eebb3e
 
 5 Advance Features of FastAPI You Should Try 
+https://medium.com/@kaustubhgupta1828/all-my-articles-under-one-hood-f1ab2e5eac89
 
 All My Articles Under One Hood! 
+https://pynative.com/python-mysql-select-query-to-fetch-data/
 
  
 
 Mysql python all type
 
 Python Select from MySQL Table 
+https://www.geeksforgeeks.org/how-to-iterate-over-files-in-directory-using-python/
 
 Python 
 
@@ -30,7 +34,7 @@ for filename in os.listdir(path_of_the_directory):
 python Any audio file to wav or etc
 
 Convert MP3 to WAV - Python Tutorial 
-
+https://pythonbasics.org/convert-mp3-to-wav/
 
 from pydub import AudioSegment
 import os
