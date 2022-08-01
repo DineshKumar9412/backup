@@ -3,17 +3,19 @@ hive web site
  
 
 How to Install Apache Hive on Ubuntu {Step-by-Step Guide} 
+https://phoenixnap.com/kb/install-hive-on-ubuntu
 
 Line error code 
 
 Hive throws: WstxParsingException: Illegal character entity: expansion character (code 0x8)
+https://stackoverflow.com/questions/52783323/hive-throws-wstxparsingexception-illegal-character-entity-expansion-character
 
 Error
 
 Cannot find hadoop installation: $HADOOP_HOME must be set or hadoop must be in the path 
-
+https://stackoverflow.com/questions/17688466/cannot-find-hadoop-installation-hadoop-home-must-be-set-or-hadoop-must-be-in-t
 Final Error
-
+https://www.edureka.co/community/63181/exception-illegalargumentexception-urisyntaxexception
 Exception in thread  main  java lang IllegalArgumentException  java net URISyntaxException  Relative path in absolute URI    system java io tmpdir 7D   7Bsystem user name 7D 
 
  
