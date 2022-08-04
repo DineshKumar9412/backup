@@ -1,0 +1,921 @@
+NLP Complete Document
+Created by Hari Kumar R
+Last updated: 6 minutes ago10 min read
+1 person viewed
+Roadmap to Master NLP
+What is Tokenization? == 1
+https://www.guru99.com/tokenize-words-sentences-nltk.html 
+
+Tokenization is the process by which a large quantity of text is divided into smaller parts called tokens
+
+word tokenize
+
+
+from nltk.tokenize import word_tokenize
+text = "God is Great! I won a lottery."
+print(word_tokenize(text))
+
+Output: ['God', 'is', 'Great', '!', 'I', 'won', 'a', 'lottery', '.']
+sentence tokenize
+
+
+from nltk.tokenize import sent_tokenize
+text = "God is Great! I won a lottery."
+print(sent_tokenize(text))
+
+Output: ['God is Great!', 'I won a lottery ']
+What is Stemming? == 2
+Stemming and Lemmatization Link. == https://www.guru99.com/stemming-lemmatization-python-nltk.html#3  
+
+
+from nltk.stem import PorterStemmer
+e_words= ["wait", "waiting", "waited", "waits"]
+ps =PorterStemmer()
+for w in e_words:
+    rootWord=ps.stem(w)
+    print(rootWord)
+    
+Output
+wait	
+wait	
+wait	
+wait 
+What is Lemmatization? == 3       Normalization & lemmatization both are same
+https://www.guru99.com/stemming-lemmatization-python-nltk.html#3  
+
+
+import nltk
+	from nltk.stem import 	WordNetLemmatizer
+	wordnet_lemmatizer = WordNetLemmatizer()
+	text = "studies studying cries cry"
+	tokenization = nltk.word_tokenize(text)
+	 for w in tokenization:
+		print("Lemma for {} is {}".format(w, wordnet_lemmatizer.lemmatize(w)))  
+Output
+Lemma for studies is study
+Lemma for studying is studying
+Lemma for cries is cry
+Lemma for cry is cry
+What is POS Tagging? == 4
+https://www.guru99.com/pos-tagging-chunking-nltk.html 
+
+
+from collections import Counter
+import nltk
+text = "Guru99 is one of the best sites to learn WEB, SAP, Ethical Hacking and much more online."
+lower_case = text.lower()
+tokens = nltk.word_tokenize(lower_case)
+tags = nltk.pos_tag(tokens)
+counts = Counter( tag for word,  tag in tags)
+print(counts)
+
+Output = [('guru99', 'NN'), ('is', 'VBZ'), ('one', 'CD'), ('of', 'IN'), ('the', 'DT'), ('best', 'JJS'), ('site', 'NN'), ('to', 'TO'), ('learn', 'VB'), ('web', 'NN'), (',', ','), ('sap', 'NN'), (',', ','), ('ethical', 'JJ'), ('hacking', 'NN'), ('and', 'CC'), ('much', 'RB'), ('more', 'JJR'), ('online', 'JJ')]
+What is Stopwords removal? == 5
+https://www.geeksforgeeks.org/removing-stop-words-nltk-python/ 
+
+
+Stop-words-list
+*****************
+import nltk
+from nltk.corpus import stopwords
+print(stopwords.words('english'))
+***************************************************************************************
+how to clear stop-words
+*************************
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+example_sent = """This is a sample sentence,
+				showing off the stop words filtration."""
+stop_words = set(stopwords.words('english'))
+word_tokens = word_tokenize(example_sent)
+filtered_sentence = [w for w in word_tokens if not w.lower() in stop_words]
+filtered_sentence = []
+for w in word_tokens:
+	if w not in stop_words:
+		filtered_sentence.append(w)
+print(word_tokens)
+print(filtered_sentence)
+['This', 'is', 'a', 'sample', 'sentence', ',', 'showing', 
+'off', 'the', 'stop', 'words', 'filtration', '.']
+['This', 'sample', 'sentence', ',', 'showing', 'stop',
+'words', 'filtration', '.']
+What is Remove Punctuations ? == 6
+https://www.programiz.com/python-programming/examples/remove-punctuation 
+
+
+# define punctuation
+punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
+
+my_str = "Hello!!!, he said ---and went."
+
+# To take input from the user
+# my_str = input("Enter a string: ")
+
+# remove punctuation from the string
+no_punct = ""
+for char in my_str:
+   if char not in punctuations:
+       no_punct = no_punct + char
+
+# display the unpunctuated string
+print(no_punct)
+OUTPUT
+Hello he said and went
+Step 2
+Advanced level Text Cleaning
+
+Correction of Typos ?
+https://www.geeksforgeeks.org/correcting-words-using-nltk-in-python/ 
+
+
+# importing the nltk suite
+import nltk
+
+# importing jaccard distance
+# and ngrams from nltk.util
+from nltk.metrics.distance import jaccard_distance
+from nltk.util import ngrams
+
+# Downloading and importing
+# package 'words' from nltk corpus
+nltk.download('words')
+from nltk.corpus import words
+correct_words = words.words()
+# list of incorrect spellings
+# that need to be corrected
+incorrect_words=['happpy', 'azmaing', 'intelliengt']
+# loop for finding correct spellings
+# based on jaccard distance
+# and printing the correct word
+for word in incorrect_words:
+	temp = [(jaccard_distance(set(ngrams(word, 2)),
+							set(ngrams(w, 2))),w)
+			for w in correct_words if w[0]==word[0]]
+	print(sorted(temp, key = lambda val:val[0])[0][1])
+
+OUTPUT
+happy, amazing, intellingent
+Step 3
+Text preprocessing Level-2
+
+https://www.analyticsvidhya.com/blog/2021/08/a-friendly-guide-to-nlp-bag-of-words-with-python-example/ 
+
+Bag of words (BOW) === 1
+
+Word Embedding and Text Vectorization
+
+This article is part of an ongoing blog series on Natural Language Processing (NLP). Up to the previous part of this article series, we almost completed the necessary steps involved in text cleaning and normalization pre-processing. After that, we will convert the processed text to numeric feature vectors so that we can feed it to computers for Machine Learning applications
+
+What is Word Embedding?
+In very simple terms, Word Embeddings are the texts converted into numbers and there may be different numerical representations of the same text. But before we dive into the details of Word Embeddings, the following question should come to mind
+
+One-Hot Encoding (OHE)
+Sentence: I am teaching NLP in Python
+
+Dictionary: [‘I’, ’am’, ’teaching’,’ NLP’,’ in’, ’Python’] 
+
+
+Vector for NLP: [0,0,0,1,0,0] 
+Vector for Python:  [0,0,0,0,0,1]
+
+Matrix Formulation
+Let’s consider the following example:
+
+
+Document-1: He is a smart boy. She is also smart.
+Document-2: Chirag is a smart person.
+
+The dictionary created contains the list of unique tokens(words) present in the corpus
+
+Unique Words: [‘He’, ’She’, ’smart’, ’boy’, ’Chirag’, ’person’]
+Here, D=2, N=6
+
+So, the count matrix M of size 2 X 6 will be represented as –
+
+Bag-of-Words(BoW)
+This vectorization technique converts the text content to numerical feature vectors. Bag of Words takes a document from a corpus and converts it into a numeric vector by mapping each document word to a feature vector for the machine learning model
+
+Tokenization
+
+Vectors Creation
+
+Tokenization
+It is the process of dividing each sentence into words or smaller parts, which are known as tokens. After the completion of tokenization, we will extract all the unique words from the corpus. Here corpus represents the tokens we get from all the documents and used for the bag of words creation.
+
+
+this burger is very tasty and affordable.
+this burger is not tasty and is affordable.
+this burger is very very delicious.
+
+Unique words: [“and”, “affordable.”, “delicious.”, “is”, “not”, “burger”, “tasty”, “this”, “very”]
+
+sparse matrix of example sentences.
+
+
+Now, the implementation of the above example in Python is given below:
+
+
+Now, the implementation of the example discussed in BOW in Python is given below:
+
+Term frequency Inverse Document Frequency (TFIDF) === 2
+
+https://www.learndatasci.com/glossary/tf-idf-term-frequency-inverse-document-frequency/ 
+
+
+All these are advanced techniques to convert words into vectors
+
+Word2Vec
+
+Prediction-based Word Embedding
+
+So far, we have discussed the deterministic methods to determine vector representation of the words but these methods proved to be limited in their word representations until the new word embedding technique named word2vec comes to the NLP community.
+
+The popular pre-trained models to create word embedding of a text are as follows:
+
+Word2Vec — From Google
+
+Fast text — From Facebook
+
+Glove — From Stanford
+
+Different Model Architectures for Word representation
+The following model architectures are used for word representations with an objective to maximize the accuracy and minimize the computation complexity:
+
+FeedForward Neural Net Language Model (NNLM)
+
+Recurrent Neural Net Language Model (RNNLM)
+
+For training of the above-mentioned models, we use Stochastic gradient descent as an optimizer and backpropagation.
+
+ 
+
+Word Embedding is a language modeling technique used for mapping words to vectors of real numbers. It represents words or phrases in vector space with several dimensions. Word embeddings can be generated using various methods like neural networks, co-occurrence matrix, probabilistic models, etc.
+
+Word2Vec consists of models for generating word embedding. These models are shallow two layer neural networks having one input layer, one hidden layer and one output layer. Word2Vec utilizes two architectures :
+
+CBOW (Continuous Bag of Words) : CBOW model predicts the current word given context words within specific window. The input layer contains the context words and the output layer contains the current word. The hidden layer contains the number of dimensions in which we want to represent current word present at the output layer.
+
+
+
+
+
+Skip Gram : Skip gram predicts the surrounding context words within specific window given current word. The input layer contains the current word and the output layer contains the context words. The hidden layer contains the number of dimensions in which we want to represent current word present at the input layer.
+
+
+
+
+
+Text Data link here .
+
+https://www.geeksforgeeks.org/python-word-embedding-using-word2vec/
+
+Sample
+
+
+pip install nltk
+pip install gensim
+
+
+import gensim
+from gensim.models import Word2Vec
+
+# Create CBOW model
+model1 = gensim.models.Word2Vec(data, min_count = 1, 
+                              size = 100, window = 5)
+
+# Create Skip Gram model
+model2 = gensim.models.Word2Vec(data, min_count = 1, size = 100,
+                                             window = 5, sg = 1)
+print(model1.similarity('alice', 'wonderland'))                                              
+print(model2.similarity('alice', 'wonderland'))                                                                                       
+
+To Find the degree of similarity between two words
+
+model.similarity('woman','man')
+#Output
+0.73723527
+
+To Find the odd one out from a set of words
+
+model.doesnt_match('breakfast cereal dinner lunch';.split())
+#Output
+'cereal'
+
+Doing algebraic manipulations using the word (like Woman+King-Man =Queen)
+
+model.most_similar(positive=['woman','king'],negative=['man'],topn=1)
+#Output
+queen: 0.508
+
+To find the Probability of a text under the model
+
+model.score(['The fox jumped over the lazy dog'.split()])
+#Output
+0.21
+
+Word Embedding Using pre-trained Word Vectors
+
+
+#Import Word2Vec from Gensim Library
+from gensim.models import Word2Vec
+#Loading the downloaded model
+model = Word2Vec.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True, norm_only=True)
+#Getting word vectors of a word
+dog = model['dog']
+print(model.most_similar(positive=['woman', 'king'], negative=['man']))
+print(model.doesnt_match("breakfast cereal dinner lunch".split()))
+print(model.similarity('woman', 'man'))
+
+#Training your own Word Vectors
+sentence: [ [‘Chirag’, ’ Boy’], [‘Kshitiz', ’ is’], [‘good’, ’ boy’]] 
+model = gensim.models.Word2Vec(sentence, min_count=1,size=300,workers=4)
+print(model.similarity('woman', 'man'))
+ 
+
+Now we need build a model
+
+
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Activation, Dropout
+from tensorflow.keras.optimizers import SGD
+import random
+import nltk
+from nltk.stem import WordNetLemmatizer
+import json
+import pickle
+
+lemmatizer = WordNetLemmatizer()
+
+words=[]
+classes = []
+documents = []
+ignore_letters = ['!', '?', ',', '.']
+intents_file = open('intents.json').read()
+intents = json.loads(intents_file)
+
+for intent in intents['intents']:
+    for pattern in intent['patterns']:
+        #tokenize each word
+        word = nltk.word_tokenize(pattern)
+        words.extend(word)
+        #add documents in the corpus
+        documents.append((word, intent['tag']))
+        # add to our classes list
+        if intent['tag'] not in classes:
+            classes.append(intent['tag'])
+print(documents)
+# lemmaztize and lower each word and remove duplicates
+words = [lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_letters]
+words = sorted(list(set(words)))
+# sort classes
+classes = sorted(list(set(classes)))
+# documents = combination between patterns and intents
+print (len(documents), "documents")
+# classes = intents
+print (len(classes), "classes", classes)
+# words = all words, vocabulary
+print (len(words), "unique lemmatized words", words)
+
+pickle.dump(words,open('words.pkl','wb'))
+pickle.dump(classes,open('classes.pkl','wb'))
+
+# create our training data
+training = []
+# create an empty array for our output
+output_empty = [0] * len(classes)
+# training set, bag of words for each sentence
+
+for doc in documents:
+    # initialize our bag of words
+    bag = []
+    # list of tokenized words for the pattern
+    pattern_words = doc[0]
+    # lemmatize each word - create base word, in attempt to represent related words
+    pattern_words = [lemmatizer.lemmatize(word.lower()) for word in pattern_words]
+    # create our bag of words array with 1, if word match found in current pattern
+    for word in words:
+        bag.append(1) if word in pattern_words else bag.append(0)
+
+    # output is a '0' for each tag and '1' for current tag (for each pattern)
+    output_row = list(output_empty)
+    output_row[classes.index(doc[1])] = 1
+
+    training.append([bag, output_row])
+# shuffle our features and turn into np.array
+random.shuffle(training)
+training = np.array(training)
+# create train and test lists. X - patterns, Y - intents
+train_x = list(training[:,0])
+train_y = list(training[:,1])
+print("Training data created")
+
+# Create model - 3 layers. First layer 128 neurons, second layer 64 neurons and 3rd output layer contains number of neurons
+# equal to number of intents to predict output intent with softmax
+model = Sequential()
+model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(64, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(len(train_y[0]), activation='softmax'))
+
+# Compile model. Stochastic gradient descent with Nesterov accelerated gradient gives good results for this model
+sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+
+#fitting and saving the model
+hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
+model.save('chatbot_model.h5', hist)
+
+print("model created")
+Final Test
+
+
+from fastapi import FastAPI, File, UploadFile,APIRouter
+import uvicorn
+from pydantic import BaseModel
+import nltk
+from nltk.stem import WordNetLemmatizer
+import pickle
+import numpy as np
+import json
+import random
+from tensorflow.keras.models import load_model
+
+class Item(BaseModel):
+    my_value: str# app = FastAPI()bookroute = APIRouter()
+
+model = load_model('chatbot_model.h5')
+
+lemmatizer = WordNetLemmatizer()
+
+intents = json.loads(open('intents.json').read())
+words = pickle.load(open('words.pkl', 'rb'))
+classes = pickle.load(open('classes.pkl', 'rb'))
+
+
+def clean_up_sentence(sentence):
+    # tokenize the pattern - splitting words into array    sentence_words = nltk.word_tokenize(sentence)
+    # stemming every word - reducing to base form    sentence_words = [lemmatizer.lemmatize(word.lower()) for word in sentence_words]
+    return sentence_words
+
+
+# return bag of words array: 0 or 1 for words that exist in sentencedef bag_of_words(sentence, words, show_details=False):
+    # tokenizing patterns    sentence_words = clean_up_sentence(sentence)
+    # bag of words - vocabulary matrix    bag = [0]*len(words)
+    for s in sentence_words:
+        # print(s)        for i,word in enumerate(words):
+            if word == s:
+                # assign 1 if current word is in the vocabulary position                bag[i] = 1                if show_details:
+                    print ("found in bag: %s" % word)
+    # print(np.array((bag)))    return(np.array(bag))
+
+def predict_class(sentence):
+    # filter below  threshold predictions    p = bag_of_words(sentence, words,show_details=True)
+    res = model.predict(np.array([p]))[0]
+    ERROR_THRESHOLD = 0.25    results = [[i,r] for i,r in enumerate(res) if r>ERROR_THRESHOLD]
+    # sorting strength probability    results.sort(key=lambda x: x[1], reverse=True)
+    return_list = []
+    for r in results:
+        return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
+    # print(return_list)    return return_list
+
+def getResponse(ints, intents_json):
+    tag = ints[0]['intent']
+    list_of_intents = intents_json['intents']
+    for i in list_of_intents:
+        if(i['tag']== tag):
+            result = random.choice(i['responses'])
+            break    return result
+
+@bookroute.post("/english_chatbot_text")
+async def analyze_route(input:Item):
+    try:
+        res = input.my_value
+        ints = predict_class(res)
+        res = getResponse(ints, intents)
+
+        return {"result":res}
+    except Exception as e:
+        return {"Success": "false", "Result":str(e) }
+        
+  
+  
+  
+  
+  old _document
+  **************
+  
+  NLP
+Created by Hari Kumar R
+Last updated: Mar 03, 20228 min read
+2 people viewed
+Functionalities
+Tokenization.
+
+Part Of Speech tagging (POS).
+
+Named Entity Recognition (NER).
+
+Classification.
+
+Sentiment analysis.
+
+Packages of chatbots.
+
+Applications
+Recommendation systems.
+
+Sentiment analysis.
+
+Building chatbots.
+
+For more information, check official documentation: Link
+
+ 
+
+DataCleaning
+
+What is Tokenization?
+Tokenization is a process of splitting a text object into smaller units which are also called tokens
+
+White-space Tokenization
+
+Regular Expression Tokenization
+
+White-space Tokenization
+For Example, Consider the following sentence-
+
+
+Sentence: I went to New-York to play football
+Tokens generated are:  “I”, “went”, “to”, “New-York”, “to”, “play”, “football”
+Regular Expression Tokenization
+For Example, consider the following string containing multiple delimiters such as comma, semi-colon, and white space.
+
+
+Sentence:=  “Basketball, Hockey; Golf Tennis"
+re.split(r’[;,s]’, Sentence
+Tokens generated are:  “Basketball”, ”Hockey”, “Golf”, “Tennis”
+ 
+
+Tokenization can be performed at the sentence level or at the word level or even at the character level. Based on it we discuss the following two types of Tokenization:
+
+Sentence Tokenization
+
+Word Tokenization
+
+Sentence Tokenization
+Natural Language Processing Python sentences Text Cleaning and Preprocessing
+Word Tokenization
+Natural Language Processing Python word tokenizer Text Cleaning and Preprocessing
+Noise Entities Removal
+Language stopwords (commonly used words of a language – is, am, the, of, in, etc)
+
+nltk. download(“stopwords”)
+
+nltk
+Removal of Stopwords
+stopwords
+Parts of Speech (POS) Tagging
+Removal of Stopwords POS
+ 
+
+For Example, Let’s consider the following sentence:
+
+
+ Sentence: David has purchased a new laptop from the Apple store
+In the below sentence, every word is associated with a part of the speech tag which defines its functions.
+
+POS Tag Natural Language Processing Python
+
+Text Cleaning Techniques
+More Text Cleaning Techniques
+
+Converting Text to Lowercase
+
+Removing HTML tags
+
+Removing Unaccented Characters
+
+Expanding Contractions
+
+Removing Special Characters
+
+Correction of Typos
+
+Standardization
+
+What is Normalization?
+
+Another type of textual noise happens when there are multiple representations exhibited by a single word.
+
+Due to grammatical reasons, a document can contain:
+
+Different forms of a particular word such as drive, drives, driving.
+
+Related words having a similar meaning, such as nation, national, nationality
+
+For Examples,
+
+
+am, are, is => be
+dog, dogs, dog’s, dogs’ => dog
+If we apply the above mapping to the below sentence, then the text will be look something like this:
+
+
+the boy’s dogs are different sizes => the boy dog be a different size
+ 
+
+Important Points about Normalization
+ 
+
+ Normalization is useful in many ways. Some of them are as follows:
+
+Reduces the number of unique tokens present in the text,
+
+Removes the variations of a word in the text, and
+
+Removes the redundant information too.
+
+The popular methods which are used for normalization are Stemming and Lemmatization. However, they are different from each other.
+
+ 
+
+ In the Feature Engineering step for text data, Normalization becomes a crucial step as it converts the high dimensional features to the low dimensional space, which is an ideal task for any Machine learning model.
+
+Stemming
+To understand stemming, firstly we have to understand the meaning of the word stem. Word stems, also known as the base form of a word, and we can create new words by attaching affixes to them in a process known as inflection.
+
+For Example, for the stem word JUMP, we can add affixes to it and form new words like JUMPS, JUMPED, and JUMPING.
+
+
+JUMP -> JUMPS, JUMPED, JUMPING
+
+For Example, Consider the following words,
+
+
+Words: “laughing”, “laughed“, “laughs”, “laugh” 
+All the above words will become “laugh”, which is their stem because their inflection form will be removed.
+
+Basics of Natural Language Processing stemming
+Here is one quick example using Porter Stemmer in NLTK.
+
+
+Lemmatization
+The output of lemmatization is the root word called lemma. For Example,
+
+
+Am, Are, Is >> Be
+Running, Ran, Run >> Run
+Important points about Lemmatization
+Since Lemmatization is a systematic process so while performing lemmatization we can specify the part of the speech tag for the desired term and lemmatization will only be performed when the given word has a proper part of the speech tag associated with it.
+
+Based on the applicability you can choose any of the below lemmatizers
+
+Wordnet Lemmatizer
+
+Spacy Lemmatizer
+
+TextBlob
+
+CLiPS Pattern
+
+Stanford CoreNLP
+
+Gensim Lemmatizer
+
+TreeTagger
+
+Here is one quick example using Wordnet lemmatizer in NLTK.
+
+
+Important Step 1 Process 
+Text Cleaning 
+
+Sentence Tokenization
+
+Natural Language Processing Python sentences Text Cleaning and Preprocessing
+Word Tokenization
+Natural Language Processing Python word tokenizer Text Cleaning and Preprocessing
+Removal of Stopwords
+stopwords
+Normalization & lemmatization
+Normalization
+
+Basics of Natural Language Processing stemming
+
+Lemmatization
+
+Word Embedding and Text Vectorization
+This article is part of an ongoing blog series on Natural Language Processing (NLP). Up to the previous part of this article series, we almost completed the necessary steps involved in text cleaning and normalization pre-processing. After that, we will convert the processed text to numeric feature vectors so that we can feed it to computers for Machine Learning applications
+
+What is Word Embedding?
+In very simple terms, Word Embeddings are the texts converted into numbers and there may be different numerical representations of the same text. But before we dive into the details of Word Embeddings, the following question should come to mind
+
+One-Hot Encoding (OHE)
+Sentence: I am teaching NLP in Python
+
+Dictionary: [‘I’, ’am’, ’teaching’,’ NLP’,’ in’, ’Python’] 
+
+
+Vector for NLP: [0,0,0,1,0,0] 
+Vector for Python:  [0,0,0,0,0,1]
+Matrix Formulation
+Let’s consider the following example:
+
+
+Document-1: He is a smart boy. She is also smart.
+Document-2: Chirag is a smart person.
+The dictionary created contains the list of unique tokens(words) present in the corpus
+
+
+Unique Words: [‘He’, ’She’, ’smart’, ’boy’, ’Chirag’, ’person’]
+Here, D=2, N=6
+
+So, the count matrix M of size 2 X 6 will be represented as –
+
+Bag-of-Words(BoW)
+This vectorization technique converts the text content to numerical feature vectors. Bag of Words takes a document from a corpus and converts it into a numeric vector by mapping each document word to a feature vector for the machine learning model
+
+Tokenization
+
+Vectors Creation
+
+Tokenization
+It is the process of dividing each sentence into words or smaller parts, which are known as tokens. After the completion of tokenization, we will extract all the unique words from the corpus. Here corpus represents the tokens we get from all the documents and used for the bag of words creation.
+
+
+this burger is very tasty and affordable.
+this burger is not tasty and is affordable.
+this burger is very very delicious.
+Unique words: [“and”, “affordable.”, “delicious.”,  “is”, “not”, “burger”, “tasty”, “this”, “very”]
+
+sparse matrix of example sentences.
+
+vectors
+Now, the implementation of the above example in Python is given below:
+
+implementation
+Now, the implementation of the example discussed in BOW in Python is given below:
+
+
+Word2Vec
+Prediction-based Word Embedding
+So far, we have discussed the deterministic methods to determine vector representation of the words but these methods proved to be limited in their word representations until the new word embedding technique named word2vec comes to the NLP community.
+
+The popular pre-trained models to create word embedding of a text are as follows:
+
+Word2Vec — From Google
+
+Fast text — From Facebook
+
+Glove — From Stanford
+
+Different Model Architectures for Word representation
+The following model architectures are used for word representations with an objective to maximize the accuracy and minimize the computation complexity:
+
+FeedForward Neural Net Language Model (NNLM)
+
+Recurrent Neural Net Language Model (RNNLM)
+
+For training of the above-mentioned models, we use Stochastic gradient descent as an optimizer and backpropagation.
+
+ 
+
+Word Embedding is a language modeling technique used for mapping words to vectors of real numbers. It represents words or phrases in vector space with several dimensions. Word embeddings can be generated using various methods like neural networks, co-occurrence matrix, probabilistic models, etc.
+
+Word2Vec consists of models for generating word embedding. These models are shallow two layer neural networks having one input layer, one hidden layer and one output layer. Word2Vec utilizes two architectures :
+
+CBOW (Continuous Bag of Words) : CBOW model predicts the current word given context words within specific window. The input layer contains the context words and the output layer contains the current word. The hidden layer contains the number of dimensions in which we want to represent current word present at the output layer.
+
+
+
+Skip Gram : Skip gram predicts the surrounding context words within specific window given current word. The input layer contains the current word and the output layer contains the context words. The hidden layer contains the number of dimensions in which we want to represent current word present at the input layer.
+
+
+
+Text Data link  here .
+
+Python | Word Embedding using Word2Vec - GeeksforGeeks 
+
+Sample 
+
+
+pip install nltk
+pip install gensim
+
+import gensim
+from gensim.models import Word2Vec
+
+# Create CBOW model
+model1 = gensim.models.Word2Vec(data, min_count = 1, 
+                              size = 100, window = 5)
+
+# Create Skip Gram model
+model2 = gensim.models.Word2Vec(data, min_count = 1, size = 100,
+                                             window = 5, sg = 1)
+print(model1.similarity('alice', 'wonderland'))                                              
+print(model2.similarity('alice', 'wonderland'))                                                                                       
+To Find the degree of similarity between two words
+
+model.similarity('woman','man')
+#Output
+0.73723527
+To Find the odd one out from a set of words
+
+model.doesnt_match('breakfast cereal dinner lunch';.split())
+#Output
+'cereal'
+Doing algebraic manipulations using the word (like Woman+King-Man =Queen)
+
+model.most_similar(positive=['woman','king'],negative=['man'],topn=1)
+#Output
+queen: 0.508
+To find the Probability of a text under the model
+
+model.score(['The fox jumped over the lazy dog'.split()])
+#Output
+0.21
+
+Word Embedding Using pre-trained Word Vectors
+
+
+#Import Word2Vec from Gensim Library
+from gensim.models import Word2Vec
+#Loading the downloaded model
+model = Word2Vec.load_word2vec_format('GoogleNews-vectors-negative300.bin', binary=True, norm_only=True)
+#Getting word vectors of a word
+dog = model['dog']
+print(model.most_similar(positive=['woman', 'king'], negative=['man']))
+print(model.doesnt_match("breakfast cereal dinner lunch".split()))
+print(model.similarity('woman', 'man'))
+
+#Training your own Word Vectors
+sentence: [ [‘Chirag’, ’ Boy’], [‘Kshitiz', ’ is’], [‘good’, ’ boy’]] 
+model = gensim.models.Word2Vec(sentence, min_count=1,size=300,workers=4)
+print(model.similarity('woman', 'man'))
+ 
+
+Chat Bot in Python with ChatterBot Module - GeeksforGeeks 
+
+Python Chatterbot: How to Make a Chatbot using Python 
+
+ 
+
+Chatbot in Python - Javatpoint 
+
+Build your own chatbot using Python | Python Tutorial for Beginners in 2022 | Great Learning 
+
+How to Make a Chatbot in Python | Chatbot in Python | Python Chatbot Tutorial | Intellipaat 
+
+https://towardsdatascience.com/how-to-build-your-own-chatbot-using-deep-learning-bb41f970e281
+
+Indian Language.(NLP Libraries for Indian Languages )
+
+https://medium.datadriveninvestor.com/natural-langauge-processing-nlp-for-indian-language-hindi-on-web-64d83f16544a 
+
+NLP Libraries For Indian Languages | NLP For Indian Languages 
+
+how to install INLTK
+
+step1 
+
+pip install torch===1.5.0 torchvision===0.6.0 -f https://download.pytorch.org/whl/torch_stable.html
+
+step2
+
+pip install inltk
+
+step3
+
+pip install sklearn
+
+step 4
+
+basic code
+
+
+from inltk.inltk import setup
+setup('hi')
+DTAT CLEANING
+https://towardsdatascience.com/natural-language-processing-nlp-for-machine-learning-d44498845d5b
+
+
+
+import string
+print(string.punctuation)
+
+import re
+def tokenize(text):
+    tokens = re.split('\W+', text) #W+ means that either a word character (A-Za-ze-9_) or a dash (-) can go there.    return tokens
+
+print(tokenize("play aaluma doluma song in youtube"))
+
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+text = "play aaluma doluma song in youtube"text_tokens = word_tokenize(text)
+tokens_without_sw = [word for word in text_tokens if not word in stopwords.words ()]
+print(tokens_without_sw)
